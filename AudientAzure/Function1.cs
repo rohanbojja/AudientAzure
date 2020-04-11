@@ -57,7 +57,12 @@ namespace AudientAzure
             ModelOutput prediction = _predictionEnginePool.Predict(modelName: "GenrePredictionModel", data);
             //ModelOutput prediction = ConsumeModel.Predict(data);
             //Convert prediction to string
-            string response = prediction.Prediction;
+            string scores = String.Empty;
+            foreach(float acc in prediction.Score)
+            {
+                scores = $"{scores},{acc}";
+            }
+            string response = $"{prediction.Prediction}{scores}";
             //string response = "HELLO WORLD";
             //Return Prediction
 
