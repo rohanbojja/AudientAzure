@@ -2,7 +2,6 @@
 using System.IO;
 using Microsoft.Extensions.ML;
 using Microsoft.Azure;
-using Microsoft.Extensions.ML;
 using AudientAzure;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using AudientAzure.DataModels;

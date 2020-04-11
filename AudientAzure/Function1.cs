@@ -32,9 +32,9 @@ namespace AudientAzure
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             //Parse HTTP Request Body
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            log.LogInformation($"YOLO {requestBody}");
-            var feature_list = requestBody.Split(",");
+            var gg = req.GetQueryParameterDictionary();
+            log.LogInformation($"YOLO {gg.Keys.Contains("features")}");
+            var feature_list = gg["features"].Split(",");
             ModelInput data = new ModelInput();
 
             FieldInfo[] fi = typeof(ModelInput).GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
