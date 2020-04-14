@@ -12,6 +12,7 @@ using Microsoft.Extensions.ML;
 using Microsoft.ML;
 using System.Reflection;
 using Microsoft.AspNetCore.Routing.Constraints;
+using System.Collections.Generic;
 
 namespace AudientAzure
 {
@@ -58,11 +59,23 @@ namespace AudientAzure
             //ModelOutput prediction = ConsumeModel.Predict(data);
             //Convert prediction to string
             string scores = String.Empty;
+            //Hacky way of assigning labels, fix this in the next build.
+            var genreList = new List<string> {"Blues","Classical","Country","Disco","HipHop","Jazz","Metal","Pop","Reggae","Rock"};
+            var tempList = new List<Genre>();
+            ind = 0;
             foreach(float acc in prediction.Score)
             {
-                scores = $"{scores},{acc}";
+                var tempGenre = new Genre();
+                tempGenre.Label = genreList[ind];
+                tempGenre.Score = acc;
+                tempList.Add(tempGenre);
+                ind += 1;
             }
-            string response = $"{prediction.Prediction}{scores}";
+            //var tempGenre2 = new Genre();
+            //tempGenre2.Label = $"Prediction: {prediction.Prediction}";
+            //tempGenre2.Score = 100;
+            tempList.Add(tempGenre2);
+            string response = JsonConvert.SerializeObject(tempList);
             //string response = "HELLO WORLD";
             //Return Prediction
 
